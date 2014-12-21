@@ -1,0 +1,11 @@
+#!/usr/local/bin/bash	
+if test $1 = "add"
+then
+   result=`expr $2 + $3`
+elif test $1 = "sub"
+then
+   result=`expr $2 - $3`
+else
+   result=0
+fi
+echo -e "The result is $result"

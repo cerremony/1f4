@@ -1,0 +1,53 @@
+#!/usr/local/bin/bash
+extra=$2
+projectname=""
+if [ -z $1 ]; then
+	echo -e "\nProject name is missing. Type in: ./NewProject project_name\n"
+	exit 0
+elif [[ $1 == */* ]]; then
+	echo -e "\nDo not include path in project name. Type in: ./NewProject project_name\n"
+	exit 0
+elif [ -z $extra ]; then
+	projectname=$1
+else
+	echo -e "\nProjectname must be a single word. Type in: ./NewProject project_name\n"
+	exit 0
+fi
+
+mkdir $projectname
+cd $projectname
+mkdir docs "source" backup archive 
+
+# compile script
+cd "source"
+touch compile
+chmod u+x compile
+touch errors
+
+# writing compile script
+echo "#!/usr/local/bin/bash" >> compile
+echo -e "x=0" >> compile
+echo "while [ \$x -eq 0 ]; do" >> compile
+echo -e "\tif [ -z \$1 ]; then" >> compile
+echo -e "\t\techo \"You are missing file names. Type in: ./compile -o executable file(s) or ./compile file(s)\"" >> compile
+echo -e "\t\texit 0" >> compile
+echo -e "\telif [ \$1 = \"-o\" ]; then" >> compile
+echo -e "\t\tif [ -z \$3 ]; then" >> compile
+echo -e "\t\t\techo \"You are missing file names. Type in: ./compile -o executable files(s) or ./compile file(s)\"" >> compile
+echo -e "\t\t\texit 0" >> compile
+echo -e "\t\telse" >> compile
+echo -e "\t\t\tx=1" >> compile
+echo -e "\t\tfi" >> compile
+echo -e "\telse" >> compile
+echo -e "\t\tx=1" >> compile
+echo -e "\tfi" >> compile
+echo -e "done\n" >> compile
+echo -e "rest=\$*" >> compile
+echo -e "set \`date\`" >> compile
+echo -e "current_date=\"\$2_\$3_\$6\"" >> compile 
+echo -e "cd ../backup" >> compile
+echo -e "tar -cf ../archive/backup_\$current_date.tar \*" >> compile
+echo -e "cd ../source" >> compile
+echo -e "cp -f \* ../backup\n" >> compile
+echo -e "gcc \$rest 2> errors" >> compile
+echo -e "more errors\n" >> compile

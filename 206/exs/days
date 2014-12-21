@@ -1,0 +1,7 @@
+#counts number of days for number of years you've been alive
+#!/usr/local/bin/bash
+
+echo "?Cuantos anos tienes?"
+read anos
+d=`expr $anos*365`
+echo "You have lived $d days"

@@ -1,0 +1,4 @@
+#!/usr/local/bin/bash
+# Executed at login
+cd Source
+cp * ./Backup

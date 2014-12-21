@@ -1,0 +1,29 @@
+#!/usr/local/bin/bash
+x=0
+while [ $x -eq 0 ]; do
+	if [ -z $1 ]; then
+		echo "You are missing file names. Type in: ./compile -o executable file(s) or ./compile file(s)"
+		exit 0
+	elif [ $1 = "-o" ]; then
+		if [ -z $3 ]; then
+			echo "You are missing file names. Type in: ./compile -o executable files(s) or ./compile file(s)"
+			exit 0
+		else
+			x=1
+		fi
+	else
+		x=1
+	fi
+done
+
+rest=$*
+set `date`
+current_date="$2_$3_$6"
+cd ../backup
+tar -cf ../archive/backup_$current_date.tar \*
+cd ../source
+cp -f \* ../backup
+
+gcc $rest 2> errors
+more errors
+

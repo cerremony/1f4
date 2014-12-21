@@ -1,0 +1,8 @@
+#!/usr/local/bin/bash
+
+i=`wc -c < $1`;
+while text $i -lt $2
+do
+	echo -n "0" >> $1;
+	i=`wc -c < $1`;
+done

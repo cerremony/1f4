@@ -1,0 +1,12 @@
+#!/usr/local/bin/bash
+
+if [ $# = 0 ]
+	then
+		echo "Usage: $0 name"
+		exit 1
+fi
+
+user_input="$1"
+grep -i "$user_input" << DIRECTORY
+DIRECTORY
+exit 0

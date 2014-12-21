@@ -1,0 +1,7 @@
+#!/bin/bash
+case $1 in
+"add" | "addition") result=`expr $2 + $3`;;
+"sub | "subtraction") result=`expr $2 - $3`;;
+*) result=0;;
+esac
+echo "The result is $result \n"
